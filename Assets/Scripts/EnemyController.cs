@@ -1,3 +1,11 @@
+/*****************************************************************************
+// File Name : EnemyController.cs
+// Author : Elodie Spangler
+// Creation Date : September 1, 2025
+//
+// Brief Description : This script controls what happens whenthe enemy collides with certain objects 
+
+*****************************************************************************/
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -5,19 +13,23 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private GameObject enemy;
-    
+    private GameController gameController;
     private PlayerController playerController;
     [SerializeField] private float health;
+    
+    private Rigidbody2D rb;
 
     /// <summary>
     /// calls player controller 
     /// </summary>
     void Start()
     {
-       
-        
+        rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = Vector2.left * speed;
 
-      
+        gameController = FindFirstObjectByType<GameController>();
+        playerController = FindFirstObjectByType<PlayerController>();
+
 
 
     }
@@ -51,9 +63,9 @@ public class EnemyController : MonoBehaviour
         }
         else if (collision.gameObject.GetComponent<ShootController>() != null) // if enemy collides with bullet
         {
-            //gameController.ScoreIncrease(); //increases score
+            gameController.ScoreIncrease(); //increases score
             TakeDamage(health);
-
+            Debug.Log("Bullet hits");
 
         }
         else if (collision.gameObject.tag == "Wall") // if enemy collides with wall

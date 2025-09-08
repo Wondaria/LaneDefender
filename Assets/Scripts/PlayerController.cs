@@ -1,3 +1,10 @@
+/*****************************************************************************
+// File Name : PlayerController.cs
+// Author : Elodie Spangler
+// Creation Date : September 1, 2025
+//
+// Brief Description : This script controls player movement and actions
+*****************************************************************************/
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
@@ -19,9 +26,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float lives;
-    [SerializeField] private TMP_Text livesText;
     
+    [SerializeField] private TMP_Text livesText;
+    private GameController gameController;
+    private PlayerController playerController;
+    private ScoreManager scoreManager;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,7 +50,12 @@ public class PlayerController : MonoBehaviour
 
         move.canceled += Move_canceled;
 
-        livesText.text = "Lives: " + lives.ToString();
+       
+
+        gameController = FindFirstObjectByType<GameController>();
+        playerController = FindFirstObjectByType<PlayerController>();
+        
+        scoreManager = FindFirstObjectByType<ScoreManager>();
     }
     /// <summary>
     /// cancels movement
@@ -81,9 +96,10 @@ public class PlayerController : MonoBehaviour
     private void Shoot_performed(InputAction.CallbackContext context)
     {
         // spawns bullets
-       
+        Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
 
-       
+
+
     }
 
     /// <summary>
@@ -113,18 +129,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// Controls lives when player collides with enemy
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<EnemyController>() != null)
-        {
-            lives -= 1;
-            livesText.text = "Lives: " + lives.ToString();
-        }
-
-    }
+    
     
 }

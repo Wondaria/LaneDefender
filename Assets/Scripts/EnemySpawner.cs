@@ -1,3 +1,10 @@
+/*****************************************************************************
+// File Name : EnemySpawner.cs
+// Author : Elodie Spangler
+// Creation Date : September 1, 2025
+//
+// Brief Description : This script controls the enemy spawning
+*****************************************************************************/
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
