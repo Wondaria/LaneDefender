@@ -23,7 +23,7 @@ public class ShootController : MonoBehaviour
     /// controls enemy getting damage
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
 
         if (other.tag == "Enemy")
@@ -34,7 +34,7 @@ public class ShootController : MonoBehaviour
 
         Destroy(gameObject); // Destroy the projectile after hitting
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<EnemyController>() != null) //if collides with and object with enemy
                                                                           //controller
